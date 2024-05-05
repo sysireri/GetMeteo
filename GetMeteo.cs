@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 
 namespace GetMeteo
 {
@@ -47,7 +47,7 @@ namespace GetMeteo
 
         #endregion
 
-        public async Task<string> ReadMeteoByCity(string vstrCity)
+        public async System.Threading.Tasks.Task<string> ReadMeteoByCity(string vstrCity)
         {
             string strMeteoCity = "";
             try
@@ -65,33 +65,48 @@ namespace GetMeteo
             return strMeteoCity;
         }
 
-        private async Task<string> MainAsync(string vstrCity)
+        private async System.Threading.Tasks.Task<string> MainAsync(string vstrCity)
         {
             string strApiKey = "aeac817b953adf4ea3773e53b296ab43";
             string strMeteoCity = "";
-
             OpenWeatherAPI.QueryResponse objQueryResponse = null;
             System.Text.StringBuilder objStringBuilder = null;
             try
             {
-                using (OpenWeatherAPI.OpenWeatherApiClient objOpenWeatherApiClient = new OpenWeatherAPI.OpenWeatherApiClient(strApiKey))
+                if(vstrCity != null && vstrCity.Length > 0)
                 {
-                    objQueryResponse = await objOpenWeatherApiClient.QueryAsync(vstrCity);
-
-                    if (objQueryResponse != null)
+                    using (OpenWeatherAPI.OpenWeatherApiClient objOpenWeatherApiClient = new OpenWeatherAPI.OpenWeatherApiClient(strApiKey))
                     {
-                        if (objQueryResponse.ValidRequest)
+                        objQueryResponse = await objOpenWeatherApiClient.QueryAsync(vstrCity);
+
+                        if (objQueryResponse != null)
                         {
-                            objStringBuilder = new System.Text.StringBuilder();
+                            if (objQueryResponse.ValidRequest)
+                            {
+                                objStringBuilder = new System.Text.StringBuilder();
 
-                            objStringBuilder.AppendLine(DateTime.Now.ToString());
-                            objStringBuilder.AppendLine();
-                            objStringBuilder.AppendLine($"{objQueryResponse.Name} \t\tLongitude : {objQueryResponse.Coordinates.Longitude} \tLatitude : {objQueryResponse.Coordinates.Latitude} Altitude : {objQueryResponse.Sys.Message}");
-                            objStringBuilder.AppendLine($"Température : \t{objQueryResponse.Main.Temperature.CelsiusCurrent}");
+                                objStringBuilder.AppendLine(DateTime.Now.ToString());
+                                objStringBuilder.AppendLine();
+                                objStringBuilder.AppendLine($"{objQueryResponse.Name} \t\tLongitude : {objQueryResponse.Coordinates.Longitude} \tLatitude : {objQueryResponse.Coordinates.Latitude} Altitude : {objQueryResponse.Sys.Message}");
+                                objStringBuilder.AppendLine($"Température : \t{objQueryResponse.Main.Temperature.CelsiusCurrent}");
+                                objStringBuilder.AppendLine($"Température Min : \t{objQueryResponse.Main.Temperature.CelsiusMinimum}");
+                                objStringBuilder.AppendLine($"Température Max : \t{objQueryResponse.Main.Temperature.CelsiusMaximum}");
 
-                            strMeteoCity = objStringBuilder.ToString();
+                                objStringBuilder.AppendLine($"Altitude : \t{objQueryResponse.Main.GroundLevelAtm}");
+                                objStringBuilder.AppendLine($"Nuage : \t{objQueryResponse.Clouds.All}");
+
+                                objStringBuilder.AppendLine($"Nuage : \t{objQueryResponse.Cod}");
+
+
+                                strMeteoCity = objStringBuilder.ToString();
+                            }
                         }
+
                     }
+                }
+                else
+                {
+                    strMeteoCity = "Vous n'avez pas fournie de ville.";
                 }
             }
             catch (Exception ex)
