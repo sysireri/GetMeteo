@@ -1,0 +1,14 @@
+C:\Users\eric\source\repos\csharp\GetMeteo\bin\Debug\GetMeteo.exe.config
+C:\Users\eric\source\repos\csharp\GetMeteo\bin\Debug\GetMeteo.exe
+C:\Users\eric\source\repos\csharp\GetMeteo\bin\Debug\GetMeteo.pdb
+C:\Users\eric\source\repos\csharp\GetMeteo\bin\Debug\Newtonsoft.Json.dll
+C:\Users\eric\source\repos\csharp\GetMeteo\bin\Debug\OpenWeatherAPI.dll
+C:\Users\eric\source\repos\csharp\GetMeteo\bin\Debug\Newtonsoft.Json.xml
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.csproj.AssemblyReference.cache
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.Properties.Resources.resources
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.csproj.GenerateResource.cache
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.csproj.CoreCompileInputs.cache
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.csproj.CopyComplete
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.exe
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.pdb
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.FrmMain.resources
