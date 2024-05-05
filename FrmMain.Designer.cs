@@ -67,12 +67,12 @@ namespace GetMeteo
             // 
             this.txtResult.AcceptsReturn = true;
             this.txtResult.AcceptsTab = true;
-            this.txtResult.Location = new System.Drawing.Point(121, 95);
+            this.txtResult.Location = new System.Drawing.Point(67, 95);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
             this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtResult.Size = new System.Drawing.Size(398, 290);
+            this.txtResult.Size = new System.Drawing.Size(675, 290);
             this.txtResult.TabIndex = 3;
             // 
             // FrmMain

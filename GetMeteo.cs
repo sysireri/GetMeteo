@@ -86,8 +86,8 @@ namespace GetMeteo
 
                             objStringBuilder.AppendLine(DateTime.Now.ToString());
                             objStringBuilder.AppendLine();
-                            objStringBuilder.AppendLine($"{objQueryResponse.Name} Longitude : {objQueryResponse.Coordinates.Longitude} Latitude : {objQueryResponse.Coordinates.Latitude} Altitude : {objQueryResponse.ID}");
-                            objStringBuilder.AppendLine($"Température : {objQueryResponse.Main.Temperature.CelsiusCurrent}");
+                            objStringBuilder.AppendLine($"{objQueryResponse.Name} \t\tLongitude : {objQueryResponse.Coordinates.Longitude} \tLatitude : {objQueryResponse.Coordinates.Latitude} Altitude : {objQueryResponse.Sys.Message}");
+                            objStringBuilder.AppendLine($"Température : \t{objQueryResponse.Main.Temperature.CelsiusCurrent}");
 
                             strMeteoCity = objStringBuilder.ToString();
                         }
