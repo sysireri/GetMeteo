@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
 //using System.Threading.Tasks;
+//using Newtonsoft.Json.Linq;
 
 namespace GetMeteo
 {
@@ -73,8 +74,9 @@ namespace GetMeteo
             System.Text.StringBuilder objStringBuilder = null;
             try
             {
-                if(vstrCity != null && vstrCity.Length > 0)
+                if(vstrCity != null && vstrCity.Length > 0 && mCheckCityExistence(vstrCity))
                 {
+
                     using (OpenWeatherAPI.OpenWeatherApiClient objOpenWeatherApiClient = new OpenWeatherAPI.OpenWeatherApiClient(strApiKey))
                     {
                         objQueryResponse = await objOpenWeatherApiClient.QueryAsync(vstrCity);
@@ -106,7 +108,7 @@ namespace GetMeteo
                 }
                 else
                 {
-                    strMeteoCity = "Vous n'avez pas fournie de ville.";
+                    strMeteoCity = "La ville fournie n'existe pas.";
                 }
             }
             catch (Exception ex)
@@ -126,5 +128,43 @@ namespace GetMeteo
 
             return strMeteoCity;
         }
+
+        private bool mCheckCityExistence(string vstrcityName)
+        {
+            string strUrl = "";
+            string strUserName = "sysireri";
+            string strJson = "";
+            string strReduceResults = "&maxRows=1&featureClass=P&featureCode=PPL&style=SHORT";
+            bool bolRet = false;
+
+            Newtonsoft.Json.Linq.JObject data = null;
+            try
+            {
+                using (System.Net.WebClient client = new System.Net.WebClient())
+                {
+                    strUrl = $"http://api.geonames.org/searchJSON?q={vstrcityName}{strReduceResults}&username={strUserName}";
+                    strJson = client.DownloadString(strUrl);
+
+                    data = Newtonsoft.Json.Linq.JObject.Parse(strJson);
+
+                    if (data.ContainsKey("totalResultsCount"))
+                    {
+                        bolRet = data["totalResultsCount"].ToObject<int>() > 0;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
+            }
+            finally
+            {
+                data = null;
+            }
+
+            return bolRet;
+        }
+
     }
 }
