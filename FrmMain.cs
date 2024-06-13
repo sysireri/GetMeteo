@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace GetMeteo
 {
@@ -21,19 +15,28 @@ namespace GetMeteo
         {
             try
             {
-                using (var objGetMeteo = new GetMeteo())
+                NewGetMeteo.NewMeteo objGetMeteoFromService = new NewGetMeteo.NewMeteo();
+                NewGetMeteo.WeatherInfo weatherInfo = await objGetMeteoFromService.GetWeatherInfoAsync(txtCity.Text.ToUpper());
+
+
+                if (weatherInfo != null)
                 {
-                    txtResult.Text = await objGetMeteo.ReadMeteoByCity(txtCity.Text.ToUpper());
+
+                    txtResult.Text = weatherInfo.timestamps.ToString();
+                    txtResult.Text = weatherInfo.Name;
+
+                }
+                else
+                {
+                    Console.WriteLine("Failed to get weather information.");
+                    txtResult.Text = "Failed to get weather information.";
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-            }
-
         }
+
     }
 }

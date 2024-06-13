@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.34729.46
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetMeteo", "GetMeteo.csproj", "{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01014551-AEA2-4053-8BCA-4C0812076BE2}"
+	ProjectSection(SolutionItems) = preProject
+		outpout.txt = outpout.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

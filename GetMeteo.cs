@@ -1,170 +1,82 @@
 ﻿using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
+//using System.Net.Http;
 //using System.Threading.Tasks;
 //using Newtonsoft.Json.Linq;
 
 namespace GetMeteo
 {
-    class GetMeteo : IDisposable
+    public class NewGetMeteo
     {
-        #region "IDisposable"
-
-        // Définir un champ pour suivre si l'objet a déjà été disposé
-        private bool bolDisposed = false;
-
-        // Méthode Dispose() pour libérer les ressources non managées
-        public void Dispose()
+        public class NewMeteo
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        // Méthode virtuelle pour libérer les ressources managées et non managées
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!bolDisposed)
+            public async System.Threading.Tasks.Task<WeatherInfo> GetWeatherInfoAsync(string vstrCity)
             {
-                if (disposing)
+                WeatherInfo objWeatherInfo = null;
+
+                string strApiKey = "aeac817b953adf4ea3773e53b296ab43";
+                string strApiUrl = $"http://api.openweathermap.org/data/2.5/weather?q={vstrCity}&appid={strApiKey}&units=metric";
+                try
                 {
-                    // Libérer les ressources managées
-                    // (ex. fermer des fichiers, libérer des connexions)
-                }
-
-                // Libérer les ressources non managées
-                // (ex. libérer des handles de fichiers, des ressources système)
-
-                // Marquer l'objet comme disposé
-                bolDisposed = true;
-            }
-        }
-
-        // Finaliseur pour libérer les ressources non managées (au cas où Dispose() ne serait pas appelé)
-        ~GetMeteo()
-        {
-            Dispose(false);
-        }
-
-        #endregion
-
-        public async System.Threading.Tasks.Task<string> ReadMeteoByCity(string vstrCity)
-        {
-            string strMeteoCity = "";
-            try
-            {
-                strMeteoCity = await MainAsync(vstrCity);
-            }
-            catch (Exception ex)
-            {
-                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
-            }
-            finally
-            {
-            }
-
-            return strMeteoCity;
-        }
-
-        private async System.Threading.Tasks.Task<string> MainAsync(string vstrCity)
-        {
-            string strApiKey = "aeac817b953adf4ea3773e53b296ab43";
-            string strMeteoCity = "";
-            OpenWeatherAPI.QueryResponse objQueryResponse = null;
-            System.Text.StringBuilder objStringBuilder = null;
-            try
-            {
-                if(vstrCity != null && vstrCity.Length > 0 && mCheckCityExistence(vstrCity))
-                {
-
-                    using (OpenWeatherAPI.OpenWeatherApiClient objOpenWeatherApiClient = new OpenWeatherAPI.OpenWeatherApiClient(strApiKey))
+                    using (System.Net.Http.HttpClient ObjHttpClient = new System.Net.Http.HttpClient())
                     {
-                        objQueryResponse = await objOpenWeatherApiClient.QueryAsync(vstrCity);
+                        System.Net.Http.HttpResponseMessage objHttpResponseMessage = await ObjHttpClient.GetAsync(strApiUrl);
 
-                        if (objQueryResponse != null)
+                        if (objHttpResponseMessage != null && objHttpResponseMessage.IsSuccessStatusCode)
                         {
-                            if (objQueryResponse.ValidRequest)
+                            string strResponseBody = await objHttpResponseMessage.Content.ReadAsStringAsync();
+                            Newtonsoft.Json.Linq.JObject objJObjectWeatherData = Newtonsoft.Json.Linq.JObject.Parse(strResponseBody);
+
+                            objWeatherInfo = new WeatherInfo();
+
+                            objWeatherInfo.timestamps = DateTime.Now;
+
+                            if (objJObjectWeatherData.TryGetValue("main", out Newtonsoft.Json.Linq.JToken objJToken))
                             {
-                                objStringBuilder = new System.Text.StringBuilder();
 
-                                objStringBuilder.AppendLine(DateTime.Now.ToString());
-                                objStringBuilder.AppendLine();
-                                objStringBuilder.AppendLine($"{objQueryResponse.Name} \t\tLongitude : {objQueryResponse.Coordinates.Longitude} \tLatitude : {objQueryResponse.Coordinates.Latitude} Altitude : {objQueryResponse.Sys.Message}");
-                                objStringBuilder.AppendLine($"Température : \t{objQueryResponse.Main.Temperature.CelsiusCurrent}");
-                                objStringBuilder.AppendLine($"Température Min : \t{objQueryResponse.Main.Temperature.CelsiusMinimum}");
-                                objStringBuilder.AppendLine($"Température Max : \t{objQueryResponse.Main.Temperature.CelsiusMaximum}");
-
-                                objStringBuilder.AppendLine($"Altitude : \t{objQueryResponse.Main.GroundLevelAtm}");
-                                objStringBuilder.AppendLine($"Nuage : \t{objQueryResponse.Clouds.All}");
-
-                                objStringBuilder.AppendLine($"Nuage : \t{objQueryResponse.Cod}");
-
-
-                                strMeteoCity = objStringBuilder.ToString();
+                                if (objJToken["temp"] != null)
+                                {
+                                    objWeatherInfo.Temperature = (double)objJToken["temp"];
+                                }
+                                else
+                                {
+                                    objWeatherInfo.Temperature = -999;
+                                }
                             }
+
+                            else
+                            {
+                                if (objJObjectWeatherData.TryGetValue("name", out Newtonsoft.Json.Linq.JToken objJToken2))
+                                {
+
+                                    if (objJToken["name"] != null)
+                                    {
+                                        objWeatherInfo.Name = objJToken2["name"].ToString();
+                                    }
+                                }
+                            }
+                            objWeatherInfo.WeatherDescription = (string)objJObjectWeatherData["weather"][0]["description"];
                         }
-
+                        else
+                        {
+                            throw new Exception("Ville Inconnue.");
+                        }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    strMeteoCity = "La ville fournie n'existe pas.";
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
-            }
-            finally
-            {
-                if (objStringBuilder != null)
-                {
-                    objStringBuilder.Clear();
-                    objStringBuilder = null;
+                    System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
                 }
 
-                objQueryResponse = null;
+                return objWeatherInfo;
             }
-
-            return strMeteoCity;
         }
 
-        private bool mCheckCityExistence(string vstrcityName)
+        public class WeatherInfo
         {
-            string strUrl = "";
-            string strUserName = "sysireri";
-            string strJson = "";
-            string strReduceResults = "&maxRows=1&featureClass=P&featureCode=PPL&style=SHORT";
-            bool bolRet = false;
-
-            Newtonsoft.Json.Linq.JObject data = null;
-            try
-            {
-                using (System.Net.WebClient client = new System.Net.WebClient())
-                {
-                    strUrl = $"http://api.geonames.org/searchJSON?q={vstrcityName}{strReduceResults}&username={strUserName}";
-                    strJson = client.DownloadString(strUrl);
-
-                    data = Newtonsoft.Json.Linq.JObject.Parse(strJson);
-
-                    if (data.ContainsKey("totalResultsCount"))
-                    {
-                        bolRet = data["totalResultsCount"].ToObject<int>() > 0;
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
-            }
-            finally
-            {
-                data = null;
-            }
-
-            return bolRet;
+            public DateTime timestamps { get; set; }
+            public string Name { get; set; }
+            public double Temperature { get; set; }
+            public string WeatherDescription { get; set; }
         }
-
     }
 }
