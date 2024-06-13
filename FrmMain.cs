@@ -22,14 +22,13 @@ namespace GetMeteo
                 if (weatherInfo != null)
                 {
 
-                    txtResult.Text = weatherInfo.timestamps.ToString();
-                    txtResult.Text = weatherInfo.Name;
+                    lstResult.Items.Add($"{weatherInfo.timestamps.ToString()}  # {weatherInfo.Name} # {weatherInfo.WeatherDescription} # {weatherInfo.Temperature }");
+
 
                 }
                 else
                 {
-                    Console.WriteLine("Failed to get weather information.");
-                    txtResult.Text = "Failed to get weather information.";
+                    lstResult.Items.Add("Failed to get weather information.");
                 }
             }
             catch (Exception ex)

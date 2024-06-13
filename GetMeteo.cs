@@ -12,14 +12,14 @@ namespace GetMeteo
             public async System.Threading.Tasks.Task<WeatherInfo> GetWeatherInfoAsync(string vstrCity)
             {
                 WeatherInfo objWeatherInfo = null;
-
                 string strApiKey = "aeac817b953adf4ea3773e53b296ab43";
                 string strApiUrl = $"http://api.openweathermap.org/data/2.5/weather?q={vstrCity}&appid={strApiKey}&units=metric";
+
                 try
                 {
-                    using (System.Net.Http.HttpClient ObjHttpClient = new System.Net.Http.HttpClient())
+                    using (System.Net.Http.HttpClient objHttpClient = new System.Net.Http.HttpClient())
                     {
-                        System.Net.Http.HttpResponseMessage objHttpResponseMessage = await ObjHttpClient.GetAsync(strApiUrl);
+                        System.Net.Http.HttpResponseMessage objHttpResponseMessage = await objHttpClient.GetAsync(strApiUrl);
 
                         if (objHttpResponseMessage != null && objHttpResponseMessage.IsSuccessStatusCode)
                         {
@@ -27,15 +27,13 @@ namespace GetMeteo
                             Newtonsoft.Json.Linq.JObject objJObjectWeatherData = Newtonsoft.Json.Linq.JObject.Parse(strResponseBody);
 
                             objWeatherInfo = new WeatherInfo();
-
                             objWeatherInfo.timestamps = DateTime.Now;
 
-                            if (objJObjectWeatherData.TryGetValue("main", out Newtonsoft.Json.Linq.JToken objJToken))
+                            if (objJObjectWeatherData.TryGetValue("main", out Newtonsoft.Json.Linq.JToken mainToken))
                             {
-
-                                if (objJToken["temp"] != null)
+                                if (mainToken["temp"] != null)
                                 {
-                                    objWeatherInfo.Temperature = (double)objJToken["temp"];
+                                    objWeatherInfo.Temperature = (double)mainToken["temp"];
                                 }
                                 else
                                 {
@@ -43,22 +41,26 @@ namespace GetMeteo
                                 }
                             }
 
-                            else
+                            if (objJObjectWeatherData.TryGetValue("weather", out Newtonsoft.Json.Linq.JToken weatherToken))
                             {
-                                if (objJObjectWeatherData.TryGetValue("name", out Newtonsoft.Json.Linq.JToken objJToken2))
+                                if (weatherToken[0]["description"] != null)
                                 {
-
-                                    if (objJToken["name"] != null)
-                                    {
-                                        objWeatherInfo.Name = objJToken2["name"].ToString();
-                                    }
+                                    objWeatherInfo.WeatherDescription = weatherToken[0]["description"].ToString();
+                                }
+                                else
+                                {
+                                    objWeatherInfo.WeatherDescription = "Inconnu";
                                 }
                             }
-                            objWeatherInfo.WeatherDescription = (string)objJObjectWeatherData["weather"][0]["description"];
+
+                            if (objJObjectWeatherData.TryGetValue("name", out Newtonsoft.Json.Linq.JToken nameToken))
+                            {
+                                objWeatherInfo.Name = nameToken.ToString();
+                            }
                         }
                         else
                         {
-                            throw new Exception("Ville Inconnue.");
+                            throw new Exception("Ville inconnue.");
                         }
                     }
                 }

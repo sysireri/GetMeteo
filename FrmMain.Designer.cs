@@ -32,7 +32,7 @@ namespace GetMeteo
             this.label1 = new System.Windows.Forms.Label();
             this.txtCity = new System.Windows.Forms.TextBox();
             this.butExtractMeteo = new System.Windows.Forms.Button();
-            this.txtResult = new System.Windows.Forms.TextBox();
+            this.lstResult = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // label1
@@ -63,24 +63,20 @@ namespace GetMeteo
             this.butExtractMeteo.UseVisualStyleBackColor = true;
             this.butExtractMeteo.Click += new System.EventHandler(this.butExtractMeteo_Click);
             // 
-            // txtResult
+            // lstResult
             // 
-            this.txtResult.AcceptsReturn = true;
-            this.txtResult.AcceptsTab = true;
-            this.txtResult.Location = new System.Drawing.Point(67, 95);
-            this.txtResult.Multiline = true;
-            this.txtResult.Name = "txtResult";
-            this.txtResult.ReadOnly = true;
-            this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtResult.Size = new System.Drawing.Size(675, 290);
-            this.txtResult.TabIndex = 3;
+            this.lstResult.FormattingEnabled = true;
+            this.lstResult.Location = new System.Drawing.Point(67, 85);
+            this.lstResult.Name = "lstResult";
+            this.lstResult.Size = new System.Drawing.Size(698, 251);
+            this.lstResult.TabIndex = 3;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.txtResult);
+            this.Controls.Add(this.lstResult);
             this.Controls.Add(this.butExtractMeteo);
             this.Controls.Add(this.txtCity);
             this.Controls.Add(this.label1);
@@ -96,7 +92,7 @@ namespace GetMeteo
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtCity;
         private System.Windows.Forms.Button butExtractMeteo;
-        private System.Windows.Forms.TextBox txtResult;
+        private System.Windows.Forms.ListBox lstResult;
     }
 }
 
