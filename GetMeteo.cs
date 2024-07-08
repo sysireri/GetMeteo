@@ -9,7 +9,6 @@
     {
         public async System.Threading.Tasks.Task<WeatherInfo> GetWeatherInfoAsync(string vstrCity)
         {
-
         ReadJson objReadJson = null;
         WeatherInfo objWeatherInfo = null;
         objReadJson = new ReadJson();
