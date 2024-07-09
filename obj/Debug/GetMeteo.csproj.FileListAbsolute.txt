@@ -12,3 +12,4 @@ C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.csproj.CoreCompile
 C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.csproj.CopyComplete
 C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.exe
 C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.pdb
+C:\Users\eric\source\repos\csharp\GetMeteo\obj\Debug\GetMeteo.csproj.AssemblyReference.cache
