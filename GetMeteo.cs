@@ -13,7 +13,7 @@
         WeatherInfo objWeatherInfo = null;
         objReadJson = new ReadJson();
 
-        // Alex Sirois 2024/07/08.
+        // Alex Sirois 2024/07/08 21:18:00
         string strApiKey = objReadJson.ReadKeayData().ApiKey_Meteo;
 
         string strApiUrl = $"http://api.openweathermap.org/data/2.5/weather?q={vstrCity}&appid={strApiKey}&units=metric";
