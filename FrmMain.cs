@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using static NewMeteo;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace GetMeteo
 {
@@ -14,25 +16,41 @@ namespace GetMeteo
 
         private async void butExtractMeteo_Click(object sender, EventArgs e)
         {
+            NewMeteo objNewMeteo = new NewMeteo();
+            List<System.Collections.Generic.KeyValuePair<string, object>> dicCity = null;
             try
             {
-                NewMeteo objGetMeteoFromService = new NewMeteo();
-                WeatherInfo weatherInfo = await objGetMeteoFromService.GetWeatherInfoAsync(txtCity.Text.ToUpper());
+                dicCity = await objNewMeteo.GetCity(txtCity.Text.ToUpper());
 
-                if (weatherInfo != null)
+                var orderedKeys = new List<string>
                 {
-                    lstResult.Items.Add($"{weatherInfo.timestamps.ToString()}  # {weatherInfo.Name} # {weatherInfo.WeatherDescription} # {weatherInfo.Temperature }");
-                }
-                else
+                    "name",
+                    "coord.lon",
+                    "coord.lat",
+                    "weather.main",
+                    "main.temp",
+                    "main.feels_like",
+                    "main.temp_min",
+                    "main.temp_max",
+                    "main.pressure",
+                    "main.humidity"
+                };
+
+                foreach (var key in orderedKeys)
                 {
-                    lstResult.Items.Add("Failed to get weather information.");
+                    foreach (var item in dicCity)
+                    {
+                        if (item.Key == key)
+                        {
+                            lstResult.Items.Add($"{item.Key}: {item.Value}");
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
             }
         }
-
     }
 }

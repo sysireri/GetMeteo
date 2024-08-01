@@ -1,84 +1,55 @@
 ﻿using System;
-//using System.Diagnostics;
-//using System.IO;
-//using System.Net.Http;
-//using System.Threading.Tasks;
-//using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
-    public class NewMeteo
+public class NewMeteo
+{
+    public async  System.Threading.Tasks.Task<List<System.Collections.Generic.KeyValuePair<string, object>>> GetCity(string vstrCity)
     {
-        public async System.Threading.Tasks.Task<WeatherInfo> GetWeatherInfoAsync(string vstrCity)
+        ReadJsonObject objReadJsonObject = null;
+        objReadJsonObject = new ReadJsonObject();
+        List<System.Collections.Generic.KeyValuePair<string, object>> ToReturn = null;
+        string strApiKey = "";
+        string strApiUrl = "";
+
+        System.Threading.Tasks.Task < System.Collections.Generic.Dictionary<string, object> > dicHttpMsg = null;
+        try
         {
-        ReadJson objReadJson = null;
-        WeatherInfo objWeatherInfo = null;
-        objReadJson = new ReadJson();
+            strApiKey = objReadJsonObject.ReadEncryptDataPassord();
 
-        // Alex Sirois 2024/07/08 21:20:00
-        string strApiKey = objReadJson.ReadKeayData().ApiKey_Meteo;
-
-        string strApiUrl = $"http://api.openweathermap.org/data/2.5/weather?q={vstrCity}&appid={strApiKey}&units=metric";
-            try
+            if (!string.IsNullOrEmpty(strApiKey))
             {
-                using (System.Net.Http.HttpClient objHttpClient = new System.Net.Http.HttpClient())
+                strApiUrl = $"http://api.openweathermap.org/data/2.5/weather?q={vstrCity}&appid={strApiKey}&units=metric";
+
+                using (HttpClient objHttpClient = new HttpClient())
                 {
-                    System.Net.Http.HttpResponseMessage objHttpResponseMessage = await objHttpClient.GetAsync(strApiUrl);
+                    HttpResponseMessage objHttpResponseMessage = await objHttpClient.GetAsync(strApiUrl);
 
-                    if (objHttpResponseMessage != null && objHttpResponseMessage.IsSuccessStatusCode)
+                    dicHttpMsg = objReadJsonObject.ConvertToDictionary(objHttpResponseMessage);
+
+                    ToReturn = new List<System.Collections.Generic.KeyValuePair<string, object>>();
+
+                    foreach (System.Collections.Generic.KeyValuePair<string, object> item in dicHttpMsg.Result)
                     {
-                        string strResponseBody = await objHttpResponseMessage.Content.ReadAsStringAsync();
-                        Newtonsoft.Json.Linq.JObject objJObjectWeatherData = Newtonsoft.Json.Linq.JObject.Parse(strResponseBody);
-
-                        objWeatherInfo = new WeatherInfo();
-                        objWeatherInfo.timestamps = DateTime.Now;
-
-                        if (objJObjectWeatherData.TryGetValue("main", out Newtonsoft.Json.Linq.JToken mainToken))
+                        if (!string.IsNullOrEmpty(item.Value?.ToString()))
                         {
-                            if (mainToken["temp"] != null)
-                            {
-                                objWeatherInfo.Temperature = (double)mainToken["temp"];
-                            }
-                            else
-                            {
-                                objWeatherInfo.Temperature = -999;
-                            }
+                            ToReturn.Add(new System.Collections.Generic.KeyValuePair<string, object>(item.Key, item.Value));
                         }
-
-                        if (objJObjectWeatherData.TryGetValue("weather", out Newtonsoft.Json.Linq.JToken weatherToken))
-                        {
-                            if (weatherToken[0]["description"] != null)
-                            {
-                                objWeatherInfo.WeatherDescription = weatherToken[0]["description"].ToString();
-                            }
-                            else
-                            {
-                                objWeatherInfo.WeatherDescription = "Inconnu";
-                            }
-                        }
-
-                        if (objJObjectWeatherData.TryGetValue("name", out Newtonsoft.Json.Linq.JToken nameToken))
-                        {
-                            objWeatherInfo.Name = nameToken.ToString();
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Ville inconnue.");
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
-            }
-
-            return objWeatherInfo;
+        }
+        catch (Exception ex)
+        {
+            System.Runtime.ExceptionServices.ExceptionDispatchInfo.Capture(ex).Throw();
+        }
+        finally
+        {
+            objReadJsonObject = null;
         }
 
-    public class WeatherInfo
-    {
-        public DateTime timestamps { get; set; }
-        public string Name { get; set; }
-        public double Temperature { get; set; }
-        public string WeatherDescription { get; set; }
+        return ToReturn;
     }
 }
