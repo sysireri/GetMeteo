@@ -35,7 +35,7 @@ namespace GetMeteo
                     "main.pressure",
                     "main.humidity"
                 };
-
+                lstResult.Items.Add($"Timestamp : {DateTime.Now}");
                 foreach (var key in orderedKeys)
                 {
                     foreach (var item in dicCity)
