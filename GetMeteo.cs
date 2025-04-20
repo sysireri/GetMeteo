@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
+//using System.Collections.Generic;
+//using System.Net.Http;
+//using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 public class NewMeteo
 {
-    public async  System.Threading.Tasks.Task<List<System.Collections.Generic.KeyValuePair<string, object>>> GetCity(string vstrCity)
+    public async  System.Threading.Tasks.Task<System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, object>>> GetCity(string vstrCity)
     {
         ReadJsonObject objReadJsonObject = null;
         objReadJsonObject = new ReadJsonObject();
-        List<System.Collections.Generic.KeyValuePair<string, object>> ToReturn = null;
+        System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, object>> ToReturn = null;
         string strApiKey = "";
         string strApiUrl = "";
 
@@ -23,13 +23,13 @@ public class NewMeteo
             {
                 strApiUrl = $"http://api.openweathermap.org/data/2.5/weather?q={vstrCity}&appid={strApiKey}&units=metric";
 
-                using (HttpClient objHttpClient = new HttpClient())
+                using (System.Net.Http.HttpClient objHttpClient = new System.Net.Http.HttpClient())
                 {
-                    HttpResponseMessage objHttpResponseMessage = await objHttpClient.GetAsync(strApiUrl);
+                    System.Net.Http.HttpResponseMessage objHttpResponseMessage = await objHttpClient.GetAsync(strApiUrl);
 
                     dicHttpMsg = objReadJsonObject.ConvertToDictionary(objHttpResponseMessage);
 
-                    ToReturn = new List<System.Collections.Generic.KeyValuePair<string, object>>();
+                    ToReturn = new System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, object>>();
 
                     foreach (System.Collections.Generic.KeyValuePair<string, object> item in dicHttpMsg.Result)
                     {

@@ -1,0 +1,106 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\readjson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|solutionrelative:readjson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\encrypt.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|solutionrelative:encrypt.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\getmeteo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|solutionrelative:getmeteo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CC25A30-19E0-4ECA-9318-FE92E4B5C3C4}|GetMeteo.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReadJson.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\ReadJson.cs",
+              "RelativeDocumentMoniker": "ReadJson.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\ReadJson.cs",
+              "RelativeToolTip": "ReadJson.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T03:15:23.487Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Encrypt.Json",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\Encrypt.Json",
+              "RelativeDocumentMoniker": "Encrypt.Json",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\Encrypt.Json",
+              "RelativeToolTip": "Encrypt.Json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-31T19:32:55.38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": ".GitIgnore",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\.GitIgnore",
+              "RelativeDocumentMoniker": ".GitIgnore",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\.GitIgnore",
+              "RelativeToolTip": ".GitIgnore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-03-31T19:32:40.021Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T03:15:19.669Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GetMeteo.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\GetMeteo.cs",
+              "RelativeDocumentMoniker": "GetMeteo.cs",
+              "ToolTip": "C:\\Users\\admin\\source\\repos\\csharp\\GetMeteo\\GetMeteo.cs",
+              "RelativeToolTip": "GetMeteo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-07T03:03:13.931Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
