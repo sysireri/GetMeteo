@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+//using System.Collections.Generic;
+//using System.IO;
+//using System.Net.Http;
+//using System.Threading.Tasks;
+//using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public class ReadJsonObject
 {
-    public async Task<Dictionary<string, object>> ConvertToDictionary(HttpResponseMessage robjHttpResponseMessage)
+    public async System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, object>> ConvertToDictionary(System.Net.Http.HttpResponseMessage robjHttpResponseMessage)
     {
         JObject jsonObject = null;
-        Dictionary<string, object> DicJson = null;
+        System.Collections.Generic.Dictionary<string, object> DicJson = null;
         try
         {
             jsonObject = await ReadJsonFromHttpResponseAsync(robjHttpResponseMessage);
@@ -32,7 +32,7 @@ public class ReadJsonObject
         return DicJson;
     }
 
-    private async Task<JObject> ReadJsonFromHttpResponseAsync(HttpResponseMessage robjHttpResponseMessage)
+    private async System.Threading.Tasks.Task<JObject> ReadJsonFromHttpResponseAsync(System.Net.Http.HttpResponseMessage robjHttpResponseMessage)
     {
         JObject jsonObject = null;
         try
@@ -53,9 +53,9 @@ public class ReadJsonObject
         return jsonObject;
     }
 
-    public Dictionary<string, object> ConvertJsonToDictionary(JObject jsonObject)
+    public System.Collections.Generic.Dictionary<string, object> ConvertJsonToDictionary(JObject jsonObject)
     {
-        Dictionary<string, object> dicJson = new Dictionary<string, object>();
+        System.Collections.Generic.Dictionary<string, object> dicJson = new System.Collections.Generic.Dictionary<string, object>();
 
         try
         {
@@ -69,7 +69,7 @@ public class ReadJsonObject
 
         return dicJson;
     }
-    private void PopulateDictionary(JObject jsonObject, Dictionary<string, object> dicJson, string parentKey)
+    private void PopulateDictionary(JObject jsonObject, System.Collections.Generic.Dictionary<string, object> dicJson, string parentKey)
     {
         try
         {
@@ -88,7 +88,7 @@ public class ReadJsonObject
 
                     case JArray jsonArray:
                         // Handle arrays by converting them to a list of strings
-                        dicJson[key] = jsonArray.ToObject<List<object>>();
+                        dicJson[key] = jsonArray.ToObject<System.Collections.Generic.List<object>>();
                         break;
 
                     default:
@@ -114,11 +114,11 @@ public class ReadJsonObject
         try
         {
             objKeyDataCustum = new KeyDataCustum();
-            strJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Encrypt.Json");
+            strJsonPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Encrypt.Json");
 
-            strJsonData = File.ReadAllText(strJsonPath);
+            strJsonData = System.IO.File.ReadAllText(strJsonPath);
 
-            ApiKey_Meteo = JsonConvert.DeserializeObject<KeyDataCustum>(strJsonData);
+            ApiKey_Meteo = Newtonsoft.Json.JsonConvert.DeserializeObject<KeyDataCustum>(strJsonData);
 
             objKeyDataCustum.ApiKey_Meteo = ApiKey_Meteo.ApiKey_Meteo;
             strPwdEnc = ApiKey_Meteo.ApiKey_Meteo;
